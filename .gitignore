@@ -1,0 +1,25 @@
+# Sistema y editores
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Dependencias
+node_modules/
+__pycache__/
+*.pyc
+env/
+venv/
+
+# Logs y temporales
+*.log
+
+# Credenciales
+.env
+config.json
+credentials.json
+
+# Datos
+/data/
+*.csv
+*.tsv

@@ -1,0 +1,38 @@
+DESCRIPTION 'Percentage of actions taken for high severity alerts'
+NODE high_severity_alerts
+SQL >
+%
+SELECT
+    COUNT() AS high_severity_alert
+FROM alerts a
+INNER JOIN conversations c
+    ON a.conversation_id = c.conversation_id
+WHERE upper(a.severity) = 'HIGH'
+  AND a.inserted_at >= toDateTime({{String(start_date, '2024-01-01')}})
+  AND a.inserted_at <= toDateTime({{String(end_date, '2024-12-31')}})
+  AND ({{String(work_unit_id, '')}} = '' OR a.work_unit_id = {{String(work_unit_id, '')}})
+  AND ({{String(protocol_id, '')}} = '' OR c.protocol_id = {{String(protocol_id, '')}})
+
+NODE actions_where_high_severity
+SQL >
+%
+SELECT
+    COUNT() AS actions_high_severity
+FROM actions ac
+INNER JOIN alerts al
+    ON ac.conversation_id = al.conversation_id
+INNER JOIN conversations c
+    ON ac.conversation_id = c.conversation_id
+WHERE upper(al.severity) = 'HIGH'
+  AND al.inserted_at >= toDateTime({{String(start_date, '2024-01-01')}})
+  AND al.inserted_at <= toDateTime({{String(end_date, '2024-12-31')}})
+  AND ({{String(work_unit_id, '')}} = '' OR al.work_unit_id = {{String(work_unit_id, '')}})
+  AND ({{String(protocol_id, '')}} = '' OR c.protocol_id = {{String(protocol_id, '')}})
+
+NODE percentage_of_actions_per_high_severity
+SQL >
+SELECT
+    (ahs.actions_high_severity * 100.0) / hsa.high_severity_alert AS percentage_of_actions_per_high_severity
+FROM actions_where_high_severity ahs
+CROSS JOIN high_severity_alerts hsa
+TYPE ENDPOINT

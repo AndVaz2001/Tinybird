@@ -1,0 +1,17 @@
+SCHEMA >
+    alert_id String,
+    alert_name Nullable(String),
+    flow_id Nullable(String),
+    flow_name Nullable(String),
+    conversation_id String,
+    severity Nullable(String),
+    created_at DateTime64(3),
+    work_unit_id String,
+    inserted_at DateTime64(3)
+
+
+IMPORT_CONNECTION_NAME "tinybirdconnect"
+IMPORT_BUCKET_URI "gs://tfm-tucuvi-bucket/alerts.csv"
+IMPORT_SCHEDULE "@on-demand"
+
+

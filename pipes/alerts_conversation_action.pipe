@@ -1,0 +1,17 @@
+NODE datasource
+SQL >
+SELECT DISTINCT
+    c.conversation_id AS conversation_id,
+    CAST(a.alert_name AS Nullable(String)) AS alert_name,
+    CAST(a.severity AS Nullable(String)) AS severity,
+    CAST(ac.action_display AS Nullable(String)) AS action_display,
+    c.started_at AS started_at,
+    c.protocol_name AS protocol_name
+FROM conversations AS c
+LEFT JOIN alerts AS a
+    ON c.conversation_id = a.conversation_id
+LEFT JOIN actions AS ac
+    ON c.conversation_id = ac.conversation_id
+;
+TYPE MATERIALIZED
+DATASOURCE ds_alert_conv_action

@@ -1,0 +1,50 @@
+DESCRIPTION "Endpoint that calculates the percentage distribution of high severity alerts grouped by alert name, with alerts below a threshold grouped as 'Other', filtered by date range"
+
+NODE total_high_severity_alerts
+SQL >
+%
+SELECT 
+    COUNT() AS total_high_severity
+FROM alerts
+WHERE upper(severity) = 'HIGH'
+  AND created_at >= toDateTime({{String(start_date, '2024-01-01')}})
+  AND created_at <= toDateTime({{String(end_date, '2024-12-31')}})
+
+NODE high_severity_by_alert_name
+SQL >
+%
+SELECT 
+    alert_name,
+    COUNT() AS alert_count
+FROM alerts
+WHERE upper(severity) = 'HIGH'
+  AND alert_name IS NOT NULL
+  AND created_at >= toDateTime({{String(start_date, '2024-01-01')}})
+  AND created_at <= toDateTime({{String(end_date, '2024-12-31')}})
+GROUP BY alert_name
+
+NODE high_severity_alerts_with_percentage
+SQL >
+%
+SELECT 
+    h.alert_name,
+    h.alert_count,
+    (h.alert_count * 100.0) / t.total_high_severity AS percentage
+FROM high_severity_by_alert_name h
+CROSS JOIN total_high_severity_alerts t
+
+NODE high_severity_alerts_grouped
+SQL >
+%
+SELECT 
+    CASE 
+        WHEN percentage >= {{Float32(min_percentage, 5.0)}} THEN alert_name
+        ELSE 'Other'
+    END AS alert_group,
+    SUM(alert_count) AS total_alert_count,
+    SUM(percentage) AS total_percentage
+FROM high_severity_alerts_with_percentage
+GROUP BY alert_group
+ORDER BY total_percentage DESC
+
+TYPE ENDPOINT

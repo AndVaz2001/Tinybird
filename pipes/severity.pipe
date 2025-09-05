@@ -1,0 +1,15 @@
+DESCRIPTION "Pipe to check alerts by severity parameter"
+
+NODE high_severity_alerts
+SQL >
+%
+SELECT 
+  a.conversation_id,
+  a.alert_id,
+  a.severity,
+  a.alert_name,
+  a.created_at AS alert_created_at
+FROM alerts AS a
+WHERE lower(a.severity) = lower({{String(severity_param, 'high')}})
+
+TYPE ENDPOINT

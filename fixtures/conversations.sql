@@ -1,0 +1,23 @@
+SELECT
+    concat('CONV', toString(1 + rand() % 10)) AS conversation_id,
+    now() - rand() % 86400 AS started_at,
+    if(rand() % 2 = 0, now() - rand() % 43200, NULL) AS sent_to_production_at,
+    if(rand() % 2 = 0, rand() % 3600, NULL) AS conversation_duration,
+    concat('PAT', toString(1 + rand() % 10)) AS patient_id,
+    concat('CLINIC', toString(1 + rand() % 10)) AS clinic_id,
+    if(rand() % 2 = 0, concat('CALL', toString(1 + rand() % 10)), NULL) AS call_id,
+    if(rand() % 2 = 0, concat('FOLLOW', toString(1 + rand() % 10)), NULL) AS followup_id,
+    rand() % 2 = 0 AS is_answered,
+    rand() % 2 = 0 AS is_completed,
+    rand() % 2 = 0 AS is_manually_reviewed,
+    if(rand() % 2 = 0, rand() % 2 = 0, NULL) AS is_HCP_reviewed,
+    if(rand() % 2 = 0, now() - rand() % 86400, NULL) AS HCP_reviewed_at,
+    if(rand() % 2 = 0, concat('HCP', toString(1 + rand() % 10)), NULL) AS HCP_reviewed_by,
+    if(rand() % 2 = 0, concat('PROTO', toString(1 + rand() % 10)), NULL) AS protocol_id,
+    if(rand() % 2 = 0, concat('Protocol ', toString(1 + rand() % 10)), NULL) AS protocol_name,
+    concat('WU', toString(1 + rand() % 10)) AS work_unit_id,
+    concat('CLIENT', toString(1 + rand() % 10)) AS client_id,
+    now() - rand() % 86400 AS inserted_at,
+    if(rand() % 2 = 0, rand() % 2 = 0, NULL) AS is_inbound,
+    if(rand() % 2 = 0, 1 + rand() % 5, NULL) AS total_attempts
+FROM numbers(10)

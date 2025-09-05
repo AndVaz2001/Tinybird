@@ -1,0 +1,22 @@
+SCHEMA >
+    created_at DateTime64(9),
+    updated_at Nullable(DateTime64(9)),
+    patient_id String,
+    clinic_id Nullable(String),
+    origin Nullable(String),
+    prefix Nullable(String),
+    source Nullable(String),
+    status Bool,
+    status_updated_at Nullable(DateTime64(9)),
+    deactivation_reason Nullable(String),
+    created_by Nullable(String),
+    updated_by Nullable(String),
+    updated_by_event Nullable(String),
+    work_unit_id String,
+    client_id String,
+    inserted_at DateTime64(9),
+    deactivation_reason_specification Nullable(String)
+
+IMPORT_CONNECTION_NAME "tinybirdconnect"
+IMPORT_BUCKET_URI "gs://tfm-tucuvi-bucket/patients.csv"
+IMPORT_SCHEDULE "@on-demand"

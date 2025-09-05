@@ -1,0 +1,26 @@
+SCHEMA >
+    conversation_id String,
+    started_at DateTime64(3),
+    sent_to_production_at Nullable(DateTime64(3)),
+    conversation_duration Nullable(UInt32),
+    patient_id String,
+    clinic_id String,
+    call_id Nullable(String),
+    followup_id Nullable(String),
+    is_answered Bool,
+    is_completed Bool,
+    is_manually_reviewed Bool,
+    is_HCP_reviewed Nullable(Bool),
+    HCP_reviewed_at Nullable(DateTime64(3)),
+    HCP_reviewed_by Nullable(String),
+    protocol_id Nullable(String),
+    protocol_name Nullable(String),
+    work_unit_id String,
+    client_id String,
+    inserted_at DateTime64(3),
+    is_inbound Nullable(Bool),
+    total_attempts Nullable(UInt8)
+
+IMPORT_CONNECTION_NAME "tinybirdconnect"
+IMPORT_BUCKET_URI "gs://tfm-tucuvi-bucket/conversations.csv"
+IMPORT_SCHEDULE "@on-demand"

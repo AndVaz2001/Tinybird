@@ -1,0 +1,7 @@
+
+- name: high_severity_alerts_basic
+  description: Test the high severity alerts endpoint with no parameters
+  parameters: ''
+  expected_result: |
+    {"conversation_id":"CONV7","alert_id":"ALERT7","severity":"High","alert_name":"Alert_2","alert_created_at":"2025-06-26 09:34:00.000"}
+

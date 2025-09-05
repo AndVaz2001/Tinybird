@@ -1,0 +1,18 @@
+DESCRIPTION "Endpoint that returns the most frequent alert name for high severity alerts within a date range"
+
+NODE most_frequent_high_severity_alert_data
+SQL >
+%
+SELECT 
+    alert_name,
+    COUNT() AS alert_count
+FROM alerts
+WHERE upper(severity) = 'HIGH'
+  AND alert_name IS NOT NULL
+  AND created_at >= toDateTime({{String(start_date, '2024-01-01')}})
+  AND created_at <= toDateTime({{String(end_date, '2024-12-31')}})
+GROUP BY alert_name
+ORDER BY alert_count DESC
+LIMIT 1
+
+TYPE ENDPOINT

@@ -1,0 +1,13 @@
+DESCRIPTION "Endpoint that counts the number of high severity alerts within a date range"
+
+NODE high_severity_count_data
+SQL >
+%
+SELECT 
+    COUNT() AS high_severity_count
+FROM alerts
+WHERE upper(severity) = 'HIGH'
+  AND created_at >= toDateTime({{String(start_date, '2024-01-01')}})
+  AND created_at <= toDateTime({{String(end_date, '2024-12-31')}})
+
+TYPE ENDPOINT

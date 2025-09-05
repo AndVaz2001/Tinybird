@@ -1,0 +1,15 @@
+
+- name: recent_conversations_default
+  description: Test retrieving the 10 most recent conversations from the dataset
+  parameters: ''
+  expected_result: |
+    {"conversation_id":"CONV1","alert_name":null,"severity":null,"action_display":"","started_at":"2025-07-23 07:30:19","protocol_name":null}
+    {"conversation_id":"CONV3","alert_name":null,"severity":null,"action_display":"Display Action 3","started_at":"2025-07-23 07:03:18","protocol_name":"Protocol 5"}
+    {"conversation_id":"CONV9","alert_name":null,"severity":null,"action_display":"Display Action 4","started_at":"2025-07-23 05:16:04","protocol_name":"Protocol 9"}
+    {"conversation_id":"CONV9","alert_name":null,"severity":null,"action_display":"Display Action 4","started_at":"2025-07-23 05:16:04","protocol_name":"Protocol 9"}
+    {"conversation_id":"CONV2","alert_name":null,"severity":null,"action_display":"Display Action 2","started_at":"2025-07-23 04:00:21","protocol_name":null}
+    {"conversation_id":"CONV4","alert_name":null,"severity":null,"action_display":"","started_at":"2025-07-23 03:15:07","protocol_name":null}
+    {"conversation_id":"conv_5982","alert_name":"Unauthorized Access","severity":"Medium","action_display":"Alerted","started_at":"2025-07-22 21:53:38","protocol_name":"DNS"}
+    {"conversation_id":"CONV5","alert_name":null,"severity":null,"action_display":"Display Action 5","started_at":"2025-07-22 19:31:06","protocol_name":"Protocol 7"}
+    {"conversation_id":"CONV10","alert_name":null,"severity":null,"action_display":"Display Action 5","started_at":"2025-07-22 19:05:45","protocol_name":null}
+    {"conversation_id":"CONV10","alert_name":null,"severity":null,"action_display":"Display Action 5","started_at":"2025-07-22 19:05:45","protocol_name":null}

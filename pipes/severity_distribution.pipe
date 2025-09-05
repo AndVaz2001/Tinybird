@@ -1,0 +1,34 @@
+DESCRIPTION "Endpoint that calculates the percentage distribution of alert severities (high, medium, low) with date range parameters"
+
+NODE total_alerts_in_period
+SQL >
+%
+SELECT 
+    COUNT() AS total_alerts
+FROM alerts a
+WHERE a.created_at >= toDateTime({{String(start_date, '2024-01-01')}})
+  AND a.created_at <= toDateTime({{String(end_date, '2024-12-31')}})
+
+NODE severity_counts
+SQL >
+%
+SELECT
+    upper(severity) AS severity_level,
+    COUNT() AS severity_count
+FROM alerts a
+WHERE a.created_at >= toDateTime({{String(start_date, '2024-01-01')}})
+  AND a.created_at <= toDateTime({{String(end_date, '2024-12-31')}})
+  AND severity IS NOT NULL
+GROUP BY severity_level
+
+NODE severity_percentages
+SQL >
+SELECT
+    sc.severity_level,
+    sc.severity_count,
+    (sc.severity_count * 100.0) / tap.total_alerts AS percentage
+FROM severity_counts sc
+CROSS JOIN total_alerts_in_period tap
+ORDER BY sc.severity_level
+
+TYPE ENDPOINT

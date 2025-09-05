@@ -1,0 +1,33 @@
+NODE completed_followups
+SQL >
+%
+SELECT 
+    COUNT() AS total_completed_followups
+FROM conversations c
+WHERE is_completed = 1
+  AND started_at >= toDateTime({{String(start_date, '2024-01-01')}})
+  AND started_at <= toDateTime({{String(end_date, '2024-12-31')}})
+  AND ({{String(work_unit_id, '')}} = '' OR c.work_unit_id = {{String(work_unit_id, '')}})
+  AND ({{String(protocol_id, '')}} = '' OR c.protocol_id = {{String(protocol_id, '')}})
+
+NODE answered_followups
+SQL >
+%
+SELECT
+    COUNT() AS answered_followups
+FROM conversations c
+WHERE is_answered = 1
+  AND c.started_at >= toDateTime({{String(start_date, '2024-01-01')}})
+  AND c.started_at <= toDateTime({{String(end_date, '2024-12-31')}})
+  AND ({{String(work_unit_id, '')}} = '' OR c.work_unit_id = {{String(work_unit_id, '')}})
+  AND ({{String(protocol_id, '')}} = '' OR c.protocol_id = {{String(protocol_id, '')}})
+
+
+NODE engagement_percentage
+SQL >
+SELECT
+    (cf.total_completed_followups / ansf.answered_followups) * 100.0 AS engagement_percentage
+FROM answered_followups ansf
+CROSS JOIN completed_followups cf
+
+TYPE ENDPOINT

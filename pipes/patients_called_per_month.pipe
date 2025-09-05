@@ -1,0 +1,12 @@
+DESCRIPTION "Endpoint that counts the number of patients called per month with filters for month and year"
+
+NODE patients_called_count
+SQL >
+%
+SELECT 
+    COUNT(DISTINCT patient_id) AS patients_called_count
+FROM conversations
+WHERE toYear(started_at) = {{Int32(year, 2024)}}
+  AND toMonth(started_at) = {{Int32(month, 1)}}
+
+TYPE ENDPOINT

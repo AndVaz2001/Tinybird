@@ -1,0 +1,15 @@
+DESCRIPTION 'This pipe filters actions per conversation based on alerts'
+NODE alert_output
+SQL >
+SELECT * FROM alerts_per_conversation
+
+NODE filtered_actions
+SQL >
+SELECT 
+  a.conversation_id,
+  act.action_name,
+  act.created_at
+FROM alert_output AS a
+JOIN actions AS act
+  ON a.conversation_id = act.conversation_id
+TYPE ENDPOINT

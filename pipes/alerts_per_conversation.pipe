@@ -1,0 +1,12 @@
+DESCRIPTION "this pipe counts alrerts per conversation, possibly used to filter conversations with a certain number of alerts"
+NODE alerts_count
+SQL >
+%
+SELECT 
+    conversation_id,
+    count() AS num_alerts
+  FROM alerts
+  WHERE 
+    {{ String(conversation_id, '') }} = '' OR conversation_id = {{ String(conversation_id, '') }}
+  GROUP BY conversation_id
+TYPE ENDPOINT

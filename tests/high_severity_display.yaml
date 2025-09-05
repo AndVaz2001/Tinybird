@@ -1,0 +1,5 @@
+
+- name: high_severity_display_basic
+  description: Basic test for high severity alerts display
+  parameters: ''
+  expected_result: "CONV7\t\\N\t2025-07-22 16:52:31.000\tWU2\tALERT7\t\t\n"

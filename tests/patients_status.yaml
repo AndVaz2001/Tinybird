@@ -1,0 +1,8 @@
+
+- name: patients_status_default
+  description: Test with default pagination parameters
+  parameters: page=0&page_size=100
+  expected_result: |
+    {"p.patient_id":"PAT8","patient_status":true,"alert_id":"ALERT10","alert_name":"Alert_5","severity":"Medium","alert_created_at":"2025-07-03 22:11:00.000","p.work_unit_id":"WU8"}
+    {"p.patient_id":"PAT6","patient_status":true,"alert_id":"ALERT4","alert_name":"Alert_4","severity":"Medium","alert_created_at":"2025-07-09 10:47:00.000","p.work_unit_id":"WU6"}
+    {"p.patient_id":"PAT8","patient_status":true,"alert_id":"ALERT10","alert_name":"Alert_5","severity":"Medium","alert_created_at":"2025-07-03 22:11:00.000","p.work_unit_id":"WU8"}

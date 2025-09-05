@@ -1,0 +1,30 @@
+
+- name: default_parameters
+  description: Test with default parameters (entire year 2024, no filters)
+  parameters: start_date=2024-01-01&end_date=2024-12-31
+  expected_result: |
+    {"reach_followup":null}
+
+- name: specific_date_range
+  description: Test with a specific date range (Q1 2024)
+  parameters: start_date=2024-01-01&end_date=2024-03-31
+  expected_result: |
+    {"reach_followup":null}
+
+- name: work_unit_filter
+  description: Test filtering by work unit
+  parameters: start_date=2024-01-01&end_date=2024-12-31&work_unit_id=unit123
+  expected_result: |
+    {"reach_followup":null}
+
+- name: protocol_filter
+  description: Test filtering by protocol
+  parameters: start_date=2024-01-01&end_date=2024-12-31&protocol_id=proto456
+  expected_result: |
+    {"reach_followup":null}
+
+- name: combined_filters
+  description: Test with both work unit and protocol filters
+  parameters: start_date=2024-01-01&end_date=2024-12-31&work_unit_id=unit123&protocol_id=proto456
+  expected_result: |
+    {"reach_followup":null}

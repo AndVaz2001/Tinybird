@@ -1,0 +1,60 @@
+DESCRIPTION 'ROI Formula  where you can filter by date, work unit and protocol'
+NODE total_attempts
+SQL >
+%
+SELECT
+  c.conversation_id,
+  SUM(c.total_attempts) AS total_attempts_sum
+FROM conversations c
+WHERE c.started_at >= toDateTime({{String(start_date, '2024-01-01')}})
+  AND c.started_at <= toDateTime({{String(end_date, '2024-12-31')}})
+  AND ({{String(work_unit_id, '')}} = '' OR c.work_unit_id = {{String(work_unit_id, '')}})
+  AND ({{String(protocol_id, '')}} = '' OR c.protocol_id = {{String(protocol_id, '')}})
+
+GROUP BY conversation_id
+
+NODE total_total_attempts
+SQL >
+SELECT
+    SUM(total_attempts_sum) AS total_total_attempts   
+FROM total_attempts
+
+NODE total_completed_followups
+SQL >
+%
+SELECT
+    SUM(CASE WHEN c.is_completed = 1 THEN 1 ELSE 0 END) AS total_completed_followups
+FROM conversations c
+WHERE c.started_at >= toDateTime({{String(start_date, '2024-01-01')}})
+  AND c.started_at <= toDateTime({{String(end_date, '2024-12-31')}})
+  AND ({{String(work_unit_id, '')}} = '' OR c.work_unit_id = {{String(work_unit_id, '')}})
+  AND ({{String(protocol_id, '')}} = '' OR c.protocol_id = {{String(protocol_id, '')}})
+
+
+NODE average_duration_when_completed
+SQL >
+%
+SELECT
+    AVG(c.conversation_duration) AS average_conversation_duration
+FROM conversations c
+WHERE c.started_at >= toDateTime({{String(start_date, '2024-01-01')}})
+  AND c.started_at <= toDateTime({{String(end_date, '2024-12-31')}})
+  AND ({{String(work_unit_id, '')}} = '' OR c.work_unit_id = {{String(work_unit_id, '')}})
+  AND ({{String(protocol_id, '')}} = '' OR c.protocol_id = {{String(protocol_id, '')}})
+
+
+NODE ROI
+SQL >
+SELECT
+  (
+    (
+      (acd.average_conversation_duration / 60.0) * 2.928
+      + 4.8 * tta.total_total_attempts / NULLIF(tcf.total_completed_followups, 0)
+    ) * tcf.total_completed_followups
+    - tcf.total_completed_followups
+  ) / 60.0 AS ROI
+FROM average_duration_when_completed acd
+CROSS JOIN total_total_attempts tta
+CROSS JOIN total_completed_followups tcf
+
+TYPE ENDPOINT

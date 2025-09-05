@@ -1,0 +1,19 @@
+NODE filter_high_severity
+SQL >
+SELECT
+   c.conversation_id as conversation_id,
+   c.protocol_id as protocol_id,
+   c.inserted_at as inserted_at,
+   c.work_unit_id as work_unit_id,
+   al.alert_id as alert_id,
+   a.action_id as action_id,
+   a.action_display as action_display
+FROM conversations c
+INNER JOIN alerts al
+   ON c.conversation_id = al.conversation_id
+   AND lower(al.severity) = 'high'
+LEFT JOIN actions a
+   ON c.conversation_id = a.conversation_id
+
+TYPE MATERIALIZED
+DATASOURCE ds_high_severity_display

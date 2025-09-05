@@ -1,0 +1,6 @@
+
+- name: roi_basic_test
+  description: Basic test for ROI calculation pipe without parameters
+  parameters: ''
+  expected_result: |
+    {"ROI":6.204506666666665}

@@ -1,0 +1,29 @@
+
+DESCRIPTION "Pipe to filter patients with recent alerts"
+
+NODE active_patients_with_recent_alerts
+SQL >
+%
+SELECT 
+    p.patient_id,
+    p.status AS patient_status,
+    a.alert_id,
+    a.alert_name,
+    a.severity,
+    a.created_at AS alert_created_at,
+    p.work_unit_id
+FROM patients AS p
+INNER JOIN conversations AS c
+    ON p.patient_id = c.patient_id
+INNER JOIN alerts AS a
+    ON a.conversation_id = c.conversation_id
+WHERE p.status = true
+  AND a.created_at >= now() - INTERVAL 30 DAY
+
+NODE result
+SQL >
+%
+    SELECT * FROM active_patients_with_recent_alerts
+    LIMIT {{Int32(page_size, 100)}}
+    OFFSET {{Int32(page, 0) * Int32(page_size, 100)}}
+TYPE ENDPOINT

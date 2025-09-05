@@ -1,0 +1,16 @@
+DESCRIPTION "Endpoint to retrieve the 10 most recent conversations with all additional info from ds_alert_conv_action"
+
+NODE recent_conversations_data
+SQL >
+SELECT 
+    conversation_id,
+    alert_name,
+    severity,
+    action_display,
+    started_at,
+    protocol_name
+FROM ds_alert_conv_action
+ORDER BY started_at DESC
+LIMIT 10
+
+TYPE ENDPOINT

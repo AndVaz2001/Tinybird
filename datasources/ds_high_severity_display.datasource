@@ -1,0 +1,10 @@
+SCHEMA >
+    `conversation_id` String,
+    `protocol_id` String,
+    `inserted_at` DateTime,
+    `work_unit_id` String,
+    `alert_id` String,
+    `action_id` Nullable(String),
+    `action_display` Nullable(String)
+ENGINE "MergeTree"
+ENGINE_SORTING_KEY "conversation_id"

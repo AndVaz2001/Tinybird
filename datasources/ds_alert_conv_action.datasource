@@ -1,0 +1,11 @@
+SCHEMA >
+    conversation_id Nullable(String),
+    alert_name Nullable(String),
+    severity Nullable(String),
+    action_display Nullable(String),
+    started_at DateTime,
+    protocol_name Nullable(String)
+ENGINE "MergeTree"
+ENGINE_PARTITION_KEY "toYYYYMM(started_at)"
+ENGINE_SORTING_KEY "started_at"
+
