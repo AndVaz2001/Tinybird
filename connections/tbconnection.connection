@@ -1,0 +1,2 @@
+TYPE gcs
+GCS_SERVICE_ACCOUNT_CREDENTIALS_JSON {{ tb_secret("gcs_svc_account_creds_tbconnection_232f2eca") }}

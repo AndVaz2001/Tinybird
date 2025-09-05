@@ -10,7 +10,7 @@ SCHEMA >
     inserted_at DateTime64(3)
 
 
-IMPORT_CONNECTION_NAME "tinybirdconnect"
+IMPORT_CONNECTION_NAME "tbconnection"
 IMPORT_BUCKET_URI "gs://tfm-tucuvi-bucket/alerts.csv"
 IMPORT_SCHEDULE "@on-demand"
 

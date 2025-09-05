@@ -21,6 +21,6 @@ SCHEMA >
     is_inbound Nullable(Bool),
     total_attempts Nullable(UInt8)
 
-IMPORT_CONNECTION_NAME "tinybirdconnect"
+IMPORT_CONNECTION_NAME "tbconnection"
 IMPORT_BUCKET_URI "gs://tfm-tucuvi-bucket/conversations.csv"
 IMPORT_SCHEDULE "@on-demand"

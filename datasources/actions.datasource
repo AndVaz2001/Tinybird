@@ -14,6 +14,6 @@ SCHEMA >
     client_id String,
     work_unit_id String,
     inserted_at DateTime64(6)
-IMPORT_CONNECTION_NAME "tinybirdconnect"
+IMPORT_CONNECTION_NAME "tbconnection"
 IMPORT_BUCKET_URI "gs://tfm-tucuvi-bucket/actions.csv"
 IMPORT_SCHEDULE "@on-demand"

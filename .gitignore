@@ -15,9 +15,9 @@ venv/
 *.log
 
 # Credenciales
+.env.local
 .env
-config.json
-credentials.json
+.tinyb
 
 # Datos
 /data/
