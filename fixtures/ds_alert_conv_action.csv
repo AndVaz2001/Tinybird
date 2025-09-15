@@ -1,0 +1,10 @@
+"conv_7991","Suspicious Activity","High","Quarantined","2025-06-30 15:26:49","SSH"
+"conv_2316","Suspicious Activity","High","Quarantined","2025-07-16 08:01:24","RDP"
+"conv_7903","Data Exfiltration","Low","Monitored","2025-06-25 20:28:17","DNS"
+"conv_5785","Malware Detected","Critical","Blocked","2025-07-15 12:43:35","DNS"
+"conv_1021","Suspicious Activity","High","Quarantined","2025-06-25 17:22:59","SMB"
+"conv_859","Brute Force Attack","Info","Logged","2025-07-18 00:25:41","SMB"
+"conv_2483","Data Exfiltration","Low","Monitored","2025-06-24 10:58:37","SSH"
+"conv_5982","Unauthorized Access","Medium","Alerted","2025-07-22 21:53:38","DNS"
+"conv_7975","Malware Detected","Critical","Blocked","2025-07-20 02:07:05","SMB"
+"conv_1823","Data Exfiltration","Low","Monitored","2025-07-14 16:09:37",\N
