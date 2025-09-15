@@ -1,7 +1,6 @@
-
 - name: actions_per_conversation_basic
   description: Basic test to retrieve actions associated with conversations from alerts
-  parameters: ''
+  parameters: ""
   expected_result: |
     {"conversation_id":"CONV2","action_name":"Action 2","created_at":"2025-07-15 05:44:10.000000"}
     {"conversation_id":"CONV5","action_name":"Action 5","created_at":"2025-07-12 08:20:17.000000"}
@@ -9,8 +8,8 @@
     {"conversation_id":"CONV10","action_name":null,"created_at":"2025-07-14 23:50:32.000000"}
     {"conversation_id":"CONV3","action_name":"Action 3","created_at":"2025-06-27 21:02:29.000000"}
 
-- name: actions_per_conversation_basic
+- name: actions_per_conversation_with_param
   description: Basic test to retrieve actions associated with conversations from alerts
-  parameters: 'conversation_id=CONV2'
+  parameters: "conversation_id=CONV2"
   expected_result: |
     {"conversation_id":"CONV2","action_name":"Action 2","created_at":"2025-07-15 05:44:10.000000"}
